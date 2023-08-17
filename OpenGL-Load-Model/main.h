@@ -16,8 +16,8 @@
 
 #include "../Library/gl_texture.h"
 
-#define WIDTH 600
-#define HEIGHT 600
+#define WIDTH 650
+#define HEIGHT 650
 
 #define INTERVAL 15
 

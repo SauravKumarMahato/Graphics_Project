@@ -1,8 +1,11 @@
 #include "main.h"
+#include<iostream>
 
 int POS_X, POS_Y;
 
-std::string model_name = "Models/sasa_car.obj";
+bool LIGHT_OFF = false;
+
+std::string model_name = "Models/sample-tree-with-car.obj";
 
 GLfloat light_pos[] = {-10.0f, 10.0f, 100.00f, 1.0f};
 
@@ -10,7 +13,7 @@ float pos_x, pos_y, pos_z;
 float angle_x = 30.0f, angle_y = 0.0f;
 
 int x_old = 0, y_old = 0;
-int current_scroll = 5;
+int current_scroll = 10;
 float zoom_per_scroll;
 
 bool is_holding_mouse = false;
@@ -18,11 +21,20 @@ bool is_updated = false;
 
 Model model;
 
+
+
+// -------------------------------------------------------------------------------
+
+int windowWidth = 800;
+int windowHeight = 600;
+
+// --------------------------------------------------
+
 void init() {
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-    glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(20.0, 1.0, 1.0, 2000.0);
@@ -56,6 +68,31 @@ void display() {
     glutSwapBuffers();
 }
 
+// void lightControlDisplay() {
+//     glClear(GL_COLOR_BUFFER_BIT);
+
+//     // Render GUI
+//     glColor3f(1.0f, 1.0f, 1.0f);
+//     glRasterPos2f(-0.9f, 0.9f);
+//     glutBitmapString(GLUT_BITMAP_HELVETICA_18, reinterpret_cast<const unsigned char*>("Light Position Control"));
+    
+//     // Render sliders
+//     glRasterPos2f(-0.9f, 0.7f);
+//     glutBitmapString(GLUT_BITMAP_HELVETICA_12, reinterpret_cast<const unsigned char*>("X:"));
+//     glutWireCube(light_pos[0] * 0.1f);
+
+//     glRasterPos2f(-0.9f, 0.5f);
+//     glutBitmapString(GLUT_BITMAP_HELVETICA_12, reinterpret_cast<const unsigned char*>("Y:"));
+//     glutWireCube(light_pos[1] * 0.1f);
+
+//     glRasterPos2f(-0.9f, 0.3f);
+//     glutBitmapString(GLUT_BITMAP_HELVETICA_12, reinterpret_cast<const unsigned char*>("Z:"));
+//     glutWireCube(light_pos[2] * 0.1f);
+
+//     glFlush();
+//     glutSwapBuffers();
+// }
+
 void timer(int value) {
     if (is_updated) {
         is_updated = false;
@@ -71,26 +108,38 @@ void mouse(int button, int state, int x, int y) {
         if (state == GLUT_DOWN) {
             x_old = x;
             y_old = y;
+            std::cout << "Mouse clicked at window coordinates: (" << x << ", " << y << ")" << std::endl;
             is_holding_mouse = true;
         } else
             is_holding_mouse = false;
     } else if (state == GLUT_UP) {
         switch (button) {
-        case 3:
-            if (current_scroll > 0) {
-                current_scroll--;
-                pos_z += zoom_per_scroll;
-            }
-            break;
-        case 4:
-            if (current_scroll < 15) {
-                current_scroll++;
-                pos_z -= zoom_per_scroll;
-            }
-            break;
+            case 3:
+                if (current_scroll > 0) {
+                    current_scroll--;
+                    pos_z += zoom_per_scroll;
+                }
+                break;
+            case 4:
+                if (current_scroll < 40) {
+                    current_scroll++;
+                    pos_z -= zoom_per_scroll;
+                }
+                break;
         }
     }
 }
+
+
+void keyboard(unsigned char key, int x, int y) {
+    if (key == 27) { // Escape key
+        exit(0);
+    } else if (key == GLUT_KEY_F1) { // ASCII code for F1 key (112)
+        // Perform the action you want when F1 is pressed
+        std::cout << "F1 key pressed! Something should happen..." << std::endl;
+    }
+}
+
 
 void motion(int x, int y) {
     if (is_holding_mouse) {
@@ -112,8 +161,58 @@ void motion(int x, int y) {
     }
 }
 
+void specialKeyboard(int key, int x, int y) {
+    if (key == GLUT_KEY_F1) {
+            glDisable(GL_LIGHT0);
+            glEnable(GL_LIGHT1);
+    }
+    else if (key == GLUT_KEY_F2){
+            glDisable(GL_LIGHT1);
+            glEnable(GL_LIGHT0);
+    }else {
+        switch (key) {
+            case GLUT_KEY_LEFT:
+                std::cout << "left " << std::endl;
+                light_pos[0] -= 1.0f;
+                break;
+            case GLUT_KEY_RIGHT:
+                std::cout << "right" << std::endl;
+                light_pos[0] += 1.0f;
+                break;
+            case GLUT_KEY_UP:
+                std::cout << "up " << std::endl;
+                light_pos[1] += 1.0f;
+                break;
+            case GLUT_KEY_DOWN:
+                std::cout << "down" << std::endl;
+                light_pos[1] -= 1.0f;
+                break;
+            case GLUT_KEY_PAGE_UP:
+                std::cout << "pageup " << std::endl;
+                light_pos[2] += 1.0f;
+                break;
+            case GLUT_KEY_PAGE_DOWN:
+                std::cout << "pagedown " << std::endl;
+                light_pos[2] -= 1.0f;
+                break;
+        }
+    }
+
+    glutPostRedisplay(); // Request a redisplay to update the scene
+}
+
+// void reshape(int width, int height) {
+//     glViewport(0, 0, width, height);
+//     glMatrixMode(GL_PROJECTION);
+//     glLoadIdentity();
+//     glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+//     glMatrixMode(GL_MODELVIEW);
+//     glLoadIdentity();
+// }
+
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
+    glutKeyboardFunc(keyboard); // Register the keyboard function
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_MULTISAMPLE);
     glEnable(GL_MULTISAMPLE);
@@ -121,14 +220,36 @@ int main(int argc, char **argv) {
     glutSetOption(GLUT_MULTISAMPLE, 8);
     POS_X = (glutGet(GLUT_SCREEN_WIDTH) - WIDTH) >> 1;
     POS_Y = (glutGet(GLUT_SCREEN_HEIGHT) - HEIGHT) >> 1;
+
+
+    // ---------------
     glutInitWindowPosition(POS_X, POS_Y);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Load Model");
+    glutCreateWindow("Main Window");
     init();
+    // ----------------
+
     glutDisplayFunc(display);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
+    glutKeyboardFunc(keyboard); // Register the keyboard function
+    glutSpecialFunc(specialKeyboard); // Register the special keyboard function
     glutTimerFunc(0, timer, 0);
+
+
+
+
+    // ---------------
+    // glutInitWindowSize(400, 300);
+    // glutInitWindowPosition(300, 300); 
+    // glutCreateWindow("Light Position Control");
+    // glutDisplayFunc(lightControlDisplay);
+    // glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    // glutReshapeFunc(reshape);
+
+    // --------------
+
+
     glutMainLoop();
     return 0;
 }
