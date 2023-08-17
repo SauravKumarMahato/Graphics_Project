@@ -134,11 +134,21 @@ void mouse(int button, int state, int x, int y) {
 void keyboard(unsigned char key, int x, int y) {
     if (key == 27) { // Escape key
         exit(0);
+    } else if (key == 'w') { // Move forward ('w' key)
+        pos_z -= 1.0f;
+    } else if (key == 's') { // Move backward ('s' key)
+        pos_z += 1.0f;
+    } else if (key == 'a') { // Move left ('a' key)
+        pos_x -= 1.0f;
+    } else if (key == 'd') { // Move right ('d' key)
+        pos_x += 1.0f;
     } else if (key == GLUT_KEY_F1) { // ASCII code for F1 key (112)
         // Perform the action you want when F1 is pressed
         std::cout << "F1 key pressed! Something should happen..." << std::endl;
     }
+    glutPostRedisplay(); // Request a redisplay to update the scene
 }
+
 
 
 void motion(int x, int y) {
