@@ -15,7 +15,7 @@
 
     bool LIGHT_OFF = false;
 
-    std::string model_name = "Models/sample-tree-with-car.obj";
+    std::string model_name = "Models/final_track1.obj";
 
     GLfloat light_pos[] = {-10.0f, 10.0f, 100.00f, 1.0f};
 
@@ -110,65 +110,11 @@
         glRotatef(car_rotation, 0.0f, 1.0f, 0.0f); // Apply rotation to the car
         carModel.draw();
         glPopMatrix();
-        //------------
-
-    // if (!selectedColor.empty()) {
-    //     if (selectedColor == "Red") {
-    //         glColor3f(1.0f, 0.0f, 0.0f); // Set color to red
-    //         std::cout<<"red" <<std::endl; 
-    //     } else if (selectedColor == "Green") {
-    //         glColor3f(0.0f, 1.0f, 0.0f); // Set color to green
-    //     } else if (selectedColor == "Yellow") {
-    //         glColor3f(1.0f, 1.0f, 0.0f); // Set color to yellow
-    //     } else if (selectedColor == "Blue") {
-    //         glColor3f(0.0f, 0.0f, 1.0f); // Set color to blue
-    //     } else if (selectedColor == "Pink") {
-    //         glColor3f(1.0f, 0.75f, 0.8f); // Set color to pink
-    //     }
-    //     // Render the car model here
-    // }
-
 
         glutSwapBuffers();
     }
 
 
-// ImGui color selection window function
-// void ColorSelectionWindow() {
-//     ImGui::Begin("Color Selection");
-
-//     if (ImGui::Button("Red")) {
-//         selectedColor = "Red";
-//         ImGui::End();
-//         glutLeaveMainLoop(); // Close the ImGui window and return to main loop
-//     }
-    
-//     if (ImGui::Button("Green")) {
-//         selectedColor = "Green";
-//         ImGui::End();
-//         glutLeaveMainLoop();
-//     }
-
-//     if (ImGui::Button("Yellow")) {
-//         selectedColor = "Yellow";
-//         ImGui::End();
-//         glutLeaveMainLoop();
-//     }
-
-//     if (ImGui::Button("Blue")) {
-//         selectedColor = "Blue";
-//         ImGui::End();
-//         glutLeaveMainLoop();
-//     }
-
-//     if (ImGui::Button("Pink")) {
-//         selectedColor = "Pink";
-//         ImGui::End();
-//         glutLeaveMainLoop();
-//     }
-
-//     ImGui::End();
-// }
 
     void timer(int value) {
         if (is_updated) {
@@ -185,7 +131,7 @@
             if (state == GLUT_DOWN) {
                 x_old = x;
                 y_old = y;
-                // std::cout << "Mouse clicked at window coordinates: (" << x << ", " << y << ")" << std::endl;
+
                 is_holding_mouse = true;
             } else
                 is_holding_mouse = false;
@@ -208,24 +154,7 @@
     }
 
 
-    // void keyboard(unsigned char key, int x, int y) {
-    //     if (key == 27) { // Escape key
-    //         exit(0);
-    //     } else if (key == 'w') { // Move forward ('w' key)
-    //         pos_z -= 1.0f;
-    //     } else if (key == 's') { // Move backward ('s' key)
-    //         pos_z += 1.0f;
-    //     } else if (key == 'a') { // Move left ('a' key)
-    //         pos_x -= 1.0f;
-    //     } else if (key == 'd') { // Move right ('d' key)
-    //         pos_x += 1.0f;
-    //     } else if (key == GLUT_KEY_F1) { // ASCII code for F1 key (112)
-    //         // Perform the action you want when F1 is pressed
-    //         std::cout << "F1 key pressed! Something should happen..." << std::endl;
-    //     }
-    //     glutPostRedisplay(); // Request a redisplay to update the scene
-    // }
-
+   
 void keyboard(unsigned char key, int x, int y) {
     if (key == 27) { // Escape key
         exit(0);
@@ -265,76 +194,6 @@ void keyboard(unsigned char key, int x, int y) {
 
     glutPostRedisplay(); // Request a redisplay to update the scene
 }
-
-
-// void keyboard(unsigned char key, int x, int y) {
-//     if (key == 27) { // Escape key
-//         exit(0);
-//     } else if (key == 'w') { // Move car forward ('w' key)
-//         keyStates[key] = true; // Set key state to pressed
-
-//         // Other keys (s, a, d, 1, 2, F1) can be handled similarly
-
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     } else if (key == 's') { // Move car backward ('s' key)
-//         keyStates[key] = true; // Set key state to pressed
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     } else if (key == 'a') { // Rotate car left ('a' key)
-//         keyStates[key] = true; // Set key state to pressed
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     } else if (key == 'd') { // Rotate car right ('d' key)
-//         keyStates[key] = true; // Set key state to pressed
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     } else if (key == '1') { // Move car up ('1' key)
-//         keyStates[key] = true; // Set key state to pressed
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     } else if (key == '2') { // Move car down ('2' key)
-//         keyStates[key] = true; // Set key state to pressed
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     } else if (key == GLUT_KEY_F1) { // ASCII code for F1 key (112)
-//         // Perform the action you want when F1 is pressed
-//         std::cout << "F1 key pressed! Something should happen..." << std::endl;
-//         glutPostRedisplay(); // Request a redisplay to update the scene
-//     }
-// }
-
-// void keyboardUp(unsigned char key, int x, int y) {
-//     // Set the key state to released
-//     keyStates[key] = false;
-
-//     glutPostRedisplay();
-// }
-
-// void mycustom_timer(int value) {
-//     if (keyStates['w']) {
-//         glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
-//         car_pos_x += forwardVector.x;
-//         car_pos_z += forwardVector.z;
-//     }
-//     if (keyStates['s']) {
-//         glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
-//         car_pos_x += backwardVector.x;
-//         car_pos_z += backwardVector.z;
-//     }
-//     if (keyStates['a']) {
-//         car_rotation += rotation_speed; // Rotate car left
-//     }
-//     if (keyStates['d']) {
-//         car_rotation -= rotation_speed; // Rotate car right
-//     }
-//     if (keyStates['1']) {
-//         car_pos_y -= 0.1f; // Move car up
-//     }
-//     if (keyStates['2']) {
-//         car_pos_y += 0.1f; // Move car down
-//     }
-
-//     if (!keyStates['w'] && !keyStates['s'] && !keyStates['a'] &&
-//         !keyStates['d'] && !keyStates['1'] && !keyStates['2']) {
-//         glutPostRedisplay();
-//     }
-//     glutTimerFunc(INTERVAL, mycustom_timer, 0);
-// }
 
 
 
@@ -398,26 +257,9 @@ void keyboard(unsigned char key, int x, int y) {
         glutPostRedisplay(); // Request a redisplay to update the scene
     }
 
-    // void reshape(int width, int height) {
-    //     glViewport(0, 0, width, height);
-    //     glMatrixMode(GL_PROJECTION);
-    //     glLoadIdentity();
-    //     glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
-    //     glMatrixMode(GL_MODELVIEW);
-    //     glLoadIdentity();
-    // }
 
     int main(int argc, char **argv) {
         glutInit(&argc, argv);
-
-
-        // --------------------------------------------------------------------------------
-        // Initialize ImGui
-        // ImGui_ImplGLUT_Init();
-
-        // // Create color selection window
-        // glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);   
-        // -------------------------------------------------------------------------------
         
         glutKeyboardFunc(keyboard); // Register the keyboard function
 
@@ -429,38 +271,25 @@ void keyboard(unsigned char key, int x, int y) {
         POS_Y = (glutGet(GLUT_SCREEN_HEIGHT) - HEIGHT) >> 1;
 
 
-        // ---------------
+
         glutInitWindowPosition(POS_X, POS_Y);
         glutInitWindowSize(WIDTH, HEIGHT);
         glutCreateWindow("Main Window");
         init();
-        // ----------------
+
 
         glutDisplayFunc(display);
         glutMouseFunc(mouse);
         glutMotionFunc(motion);
         glutKeyboardFunc(keyboard); // Register the keyboard function
         glutSpecialFunc(specialKeyboard); // Register the special keyboard function
-        // glutKeyboardUpFunc(keyboardUp);
+
         glutTimerFunc(0, timer, 0);
 
-
-
-
-        // Load a default car model (e.g., blue_car.obj)
+        // -------------------------
         selectedColor = "Blue";
         carModel.load(carModelPaths[selectedColor].c_str());
-        // ---------------
-        // glutInitWindowSize(400, 300);
-        // glutInitWindowPosition(300, 300); 
-        // glutCreateWindow("Light Position Control");
-        // glutDisplayFunc(lightControlDisplay);
-        // glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        // glutReshapeFunc(reshape);
 
-        // --------------
-
-        // Inside your main function before glutMainLoop()
 
         glutMainLoop();
         return 0;
