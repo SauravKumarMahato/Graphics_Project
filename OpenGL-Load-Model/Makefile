@@ -1,7 +1,7 @@
 CPP      = g++
-OBJ      = main.o
-LINKOBJ  = main.o
-LIBS     = -m32 -lopengl32 -lglu32 -lfreeglut
+OBJ      = main
+LINKOBJ  = main
+LIBS     = -lGL -lGLU -lglut
 BIN      = load_model
 RM       = rm -f
 
@@ -15,5 +15,7 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-main.o: main.cpp
-	$(CPP) -c main.cpp -o main.o -std=c++11 -m32
+main: main.cpp
+	$(CPP) main.cpp -o main -std=c++11 -lGL -lGLU -lglut
+	./main
+	make clean
