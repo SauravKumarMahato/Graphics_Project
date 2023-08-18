@@ -45,8 +45,8 @@
 
     // Car position
     float car_pos_x = 0.0f;
-    float car_pos_y = 0.0f;
-    float car_pos_z = 0.0f;
+    float car_pos_y = 8.4f;
+    float car_pos_z = -3.0f;
 
     float car_rotation = 0.0f;
     float rotation_speed = 2.0f; // Adjust the rotation speed as needed
