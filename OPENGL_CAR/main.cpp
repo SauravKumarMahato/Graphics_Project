@@ -136,9 +136,9 @@ void keyboardUp(unsigned char key, int x, int y) {
 
 void timer(int value) {
             // Check for key combinations and perform actions
-    if (wPressed && aPressed) {
+if (wPressed && aPressed) {
         // Move car forward and rotate left
-        glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
+        glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.05f, 1.0f); // Decreased speed
         car_pos_x += forwardVector.x;
         car_pos_z += forwardVector.z;
         car_rotation += rotation_speed;
@@ -148,24 +148,25 @@ void timer(int value) {
         car_pos_x += forwardVector.x;
         car_pos_z += forwardVector.z;
         car_rotation -= rotation_speed;
-    } else if (sPressed && aPressed) {
+    }else if (sPressed && aPressed) {
         // Move car backward and rotate left
         glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
         car_pos_x += backwardVector.x;
         car_pos_z += backwardVector.z;
-        car_rotation -= rotation_speed;
+        car_rotation += rotation_speed; // Rotate car left
     } else if (sPressed && dPressed) {
         // Move car backward and rotate right
-        glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
+        glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.05f, 1.0f); // Decreased speed
         car_pos_x += backwardVector.x;
         car_pos_z += backwardVector.z;
-        car_rotation += rotation_speed;
+        car_rotation -= rotation_speed; // Rotate car right
     }else if (wPressed) {
         // Move car forward
         glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
         car_pos_x += forwardVector.x;
         car_pos_z += forwardVector.z;
     }
+
     if (aPressed) {
         // Rotate car left
         car_rotation += rotation_speed; // Rotate car left
