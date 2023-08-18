@@ -6,6 +6,10 @@
     #include <glm/gtc/matrix_transform.hpp>
     // #include <map> 
 
+    #include <string>
+    // #include "../Library/imgui-master/imgui.h"
+    // #include "../Library/imgui-master/backends/imgui_impl_glut.h" // ImGui integration for GLUT
+
 
     int POS_X, POS_Y;
 
@@ -45,11 +49,23 @@
     float car_rotation = 0.0f;
     float rotation_speed = 2.0f; // Adjust the rotation speed as needed
 
-
     // std::map<unsigned char, bool> keyStates;
 
 
-    // --------------------------------------------------
+    // ---------------------------------------------------
+    std::string selectedColor;
+
+
+    // Path to the car models for different colors
+    std::map<std::string, std::string> carModelPaths = {
+        {"Red", "Models/red_car.obj"},
+        {"Green", "Models/green_car.obj"},
+        {"Yellow", "Models/yellow_car.obj"},
+        {"Blue", "Models/blue_car.obj"},
+        {"Pink", "Models/pink_car.obj"}
+    };
+
+    //  ------------------------
 
     void init() {
         glEnable(GL_LIGHTING);
@@ -96,8 +112,63 @@
         glPopMatrix();
         //------------
 
+    // if (!selectedColor.empty()) {
+    //     if (selectedColor == "Red") {
+    //         glColor3f(1.0f, 0.0f, 0.0f); // Set color to red
+    //         std::cout<<"red" <<std::endl; 
+    //     } else if (selectedColor == "Green") {
+    //         glColor3f(0.0f, 1.0f, 0.0f); // Set color to green
+    //     } else if (selectedColor == "Yellow") {
+    //         glColor3f(1.0f, 1.0f, 0.0f); // Set color to yellow
+    //     } else if (selectedColor == "Blue") {
+    //         glColor3f(0.0f, 0.0f, 1.0f); // Set color to blue
+    //     } else if (selectedColor == "Pink") {
+    //         glColor3f(1.0f, 0.75f, 0.8f); // Set color to pink
+    //     }
+    //     // Render the car model here
+    // }
+
+
         glutSwapBuffers();
     }
+
+
+// ImGui color selection window function
+// void ColorSelectionWindow() {
+//     ImGui::Begin("Color Selection");
+
+//     if (ImGui::Button("Red")) {
+//         selectedColor = "Red";
+//         ImGui::End();
+//         glutLeaveMainLoop(); // Close the ImGui window and return to main loop
+//     }
+    
+//     if (ImGui::Button("Green")) {
+//         selectedColor = "Green";
+//         ImGui::End();
+//         glutLeaveMainLoop();
+//     }
+
+//     if (ImGui::Button("Yellow")) {
+//         selectedColor = "Yellow";
+//         ImGui::End();
+//         glutLeaveMainLoop();
+//     }
+
+//     if (ImGui::Button("Blue")) {
+//         selectedColor = "Blue";
+//         ImGui::End();
+//         glutLeaveMainLoop();
+//     }
+
+//     if (ImGui::Button("Pink")) {
+//         selectedColor = "Pink";
+//         ImGui::End();
+//         glutLeaveMainLoop();
+//     }
+
+//     ImGui::End();
+// }
 
     void timer(int value) {
         if (is_updated) {
@@ -174,10 +245,24 @@ void keyboard(unsigned char key, int x, int y) {
         car_pos_y -= 0.1f; // Move car up
     } else if (key == '2') { // Move car down ('2' key)
         car_pos_y += 0.1f; // Move car down
-    } else if (key == GLUT_KEY_F1) { // ASCII code for F1 key (112)
-        // Perform the action you want when F1 is pressed
-        std::cout << "F1 key pressed! Something should happen..." << std::endl;
+    }else if (key == 'r') {
+        selectedColor = "Red";
+        carModel.load(carModelPaths[selectedColor].c_str());
+    } else if (key == 'g') {
+        selectedColor = "Green";
+        carModel.load(carModelPaths[selectedColor].c_str());
+    } else if (key == 'y') {
+        selectedColor = "Yellow";
+        carModel.load(carModelPaths[selectedColor].c_str());
+    } else if (key == 'b') {
+        selectedColor = "Blue";
+        carModel.load(carModelPaths[selectedColor].c_str());
+    } else if (key == 'p') {
+        selectedColor = "Pink";
+        carModel.load(carModelPaths[selectedColor].c_str());
     }
+
+
     glutPostRedisplay(); // Request a redisplay to update the scene
 }
 
@@ -324,6 +409,16 @@ void keyboard(unsigned char key, int x, int y) {
 
     int main(int argc, char **argv) {
         glutInit(&argc, argv);
+
+
+        // --------------------------------------------------------------------------------
+        // Initialize ImGui
+        // ImGui_ImplGLUT_Init();
+
+        // // Create color selection window
+        // glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);   
+        // -------------------------------------------------------------------------------
+        
         glutKeyboardFunc(keyboard); // Register the keyboard function
 
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH | GLUT_MULTISAMPLE);
@@ -351,8 +446,10 @@ void keyboard(unsigned char key, int x, int y) {
 
 
 
-        carModel.load("Models/blue_car.obj");
 
+        // Load a default car model (e.g., blue_car.obj)
+        selectedColor = "Blue";
+        carModel.load(carModelPaths[selectedColor].c_str());
         // ---------------
         // glutInitWindowSize(400, 300);
         // glutInitWindowPosition(300, 300); 
@@ -363,6 +460,7 @@ void keyboard(unsigned char key, int x, int y) {
 
         // --------------
 
+        // Inside your main function before glutMainLoop()
 
         glutMainLoop();
         return 0;

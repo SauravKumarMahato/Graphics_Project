@@ -1,4 +1,4 @@
-# Blender MTL File: 'None'
+# Blender MTL File: 'blue_car.blend'
 # Material Count: 10
 
 newmtl Back_Lights
@@ -14,7 +14,7 @@ illum 3
 newmtl Body
 Ns 635.294117
 Ka 0.019608 0.019608 0.019608
-Kd 1.000000 0.000000 0.105366
+Kd 0.816477 0.000000 0.984889
 Ks 0.196078 0.196078 0.196078
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
