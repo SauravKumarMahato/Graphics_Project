@@ -53,6 +53,10 @@
 
     // std::map<unsigned char, bool> keyStates;
 
+    bool wPressed = false;
+    bool aPressed = false;
+    bool sPressed = false;
+    bool dPressed = false;
 
     // ---------------------------------------------------
     std::string selectedColor;
@@ -116,15 +120,80 @@
         glutSwapBuffers();
     }
 
-
-
-    void timer(int value) {
-        if (is_updated) {
-            is_updated = false;
-            glutPostRedisplay();
-        }
-        glutTimerFunc(INTERVAL, timer, 0);
+// Keyboard up function
+void keyboardUp(unsigned char key, int x, int y) {
+    // Set key states to false when keys are released
+    if (key == 'w') {
+        wPressed = false;
+    } else if (key == 'a') {
+        aPressed = false;
+    } else if (key == 's') {
+        sPressed = false;
+    } else if (key == 'd') {
+        dPressed = false;
     }
+}   
+
+void timer(int value) {
+            // Check for key combinations and perform actions
+    if (wPressed && aPressed) {
+        // Move car forward and rotate left
+        glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
+        car_pos_x += forwardVector.x;
+        car_pos_z += forwardVector.z;
+        car_rotation += rotation_speed;
+    } else if (wPressed && dPressed) {
+        // Move car forward and rotate right
+        glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
+        car_pos_x += forwardVector.x;
+        car_pos_z += forwardVector.z;
+        car_rotation -= rotation_speed;
+    } else if (sPressed && aPressed) {
+        // Move car backward and rotate left
+        glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
+        car_pos_x += backwardVector.x;
+        car_pos_z += backwardVector.z;
+        car_rotation -= rotation_speed;
+    } else if (sPressed && dPressed) {
+        // Move car backward and rotate right
+        glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
+        car_pos_x += backwardVector.x;
+        car_pos_z += backwardVector.z;
+        car_rotation += rotation_speed;
+    }else if (wPressed) {
+        // Move car forward
+        glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
+        car_pos_x += forwardVector.x;
+        car_pos_z += forwardVector.z;
+    }
+    if (aPressed) {
+        // Rotate car left
+        car_rotation += rotation_speed; // Rotate car left
+    }
+    if (sPressed) {
+        // Move car backward
+        glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
+        car_pos_x += backwardVector.x;
+        car_pos_z += backwardVector.z;
+    }
+    if (dPressed) {
+        // Rotate car right
+       car_rotation -= rotation_speed; // Rotate car right
+    }
+
+    // Redisplay the scene
+    if (is_updated) {
+        is_updated = false;
+        glutPostRedisplay();
+    }
+
+
+    // Redisplay the scene
+    glutPostRedisplay();
+    glutTimerFunc(INTERVAL, timer, 0);
+}
+
+
 
     void mouse(int button, int state, int x, int y) {
         is_updated = true;
@@ -160,18 +229,14 @@
 void keyboard(unsigned char key, int x, int y) {
     if (key == 27) { // Escape key
         exit(0);
-    } else if (key == 'w') { // Move car forward ('w' key)
-        glm::vec3 forwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, -0.1f, 1.0f);
-        car_pos_x += forwardVector.x;
-        car_pos_z += forwardVector.z;
-    } else if (key == 's') { // Move car backward ('s' key)
-        glm::vec3 backwardVector = glm::rotate(glm::mat4(1.0f), glm::radians(car_rotation), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(0.0f, 0.0f, 0.1f, 1.0f);
-        car_pos_x += backwardVector.x;
-        car_pos_z += backwardVector.z;
-    } else if (key == 'a') { // Rotate car left ('a' key)
-        car_rotation += rotation_speed; // Rotate car left
-    } else if (key == 'd') { // Rotate car right ('d' key)
-        car_rotation -= rotation_speed; // Rotate car right
+    } else     if (key == 'w') {
+        wPressed = true;
+    } else if (key == 'a') {
+        aPressed = true;
+    } else if (key == 's') {
+        sPressed = true;
+    } else if (key == 'd') {
+        dPressed = true;  // Rotate car right
     } else if (key == '1') { // Move car up ('1' key)
         car_pos_y -= 0.1f; // Move car up
     } else if (key == '2') { // Move car down ('2' key)
@@ -284,6 +349,7 @@ void keyboard(unsigned char key, int x, int y) {
         glutMouseFunc(mouse);
         glutMotionFunc(motion);
         glutKeyboardFunc(keyboard); // Register the keyboard function
+        glutKeyboardUpFunc(keyboardUp);
         glutSpecialFunc(specialKeyboard); // Register the special keyboard function
 
         glutTimerFunc(0, timer, 0);
