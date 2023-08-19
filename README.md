@@ -13,6 +13,8 @@ The project basically contains a moveable environment or view where there is a c
 |           d           |               turn right              |  
 |        w and a        | move front along with turning left    |   
 |        w and d        |  move front along with turning right  |  
+|        s and a        | move back along with turning left    |   
+|        s and d        |  move back along with turning right  |  
 |           1           |          move up in y - axis          |
 |           2           |         move down in y - axis         |   
 |           f1          |                 night                 |   
