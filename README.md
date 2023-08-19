@@ -45,13 +45,10 @@ yay && yay -S mesa freeglut //With yay installed
 ```
 ## HOW TO RUN PROJECT
 - Clone repository first: 
-`git clone git@github.com:SauravKumarMahato/Graphics_Project.gity`
+`git@github.com:SauravKumarMahato/Graphics_Project.git`
 - Move inside OPENGL_CAR FOLDER: 
 `cd OPENGL_CAR`
-- Build with make:
-
-
-`make`
+- Build with make:`make`
 - Or build in command line: 
 `g++ main.cpp -o load_model -lGL -lGLU -lglut`
 - And run: 
