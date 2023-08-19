@@ -5,27 +5,27 @@ The project basically contains a moveable environment or view where there is a c
 
 ## FUNCTIONALITIES:
 
-|      **Buttons**      |                **Uses**               |   |   |   |   |
-|:---------------------:|:-------------------------------------:|---|---|---|---|
-|           w           |               move front              |   |   |   |   |
-|           s           |               move back               |   |   |   |   |
-|           a           |               turn left               |   |   |   |   |
-|           d           |               turn right              |   |   |   |   |
-|        w and a        | move front along with turning left    |   |   |   |   |
-|        w and d        |  move front along with turning right  |   |   |   |   |
-|           1           |          move up in y - axis          |   |   |   |   |
-|           2           |         move down in y - axis         |   |   |   |   |
-|           f1          |                 night                 |   |   |   |   |
-|           f2          |                  day                  |   |   |   |   |
+|      **Buttons**      |                **Uses**               |   
+|:---------------------:|:-------------------------------------:|
+|           w           |               move front              |
+|           s           |               move back               |   
+|           a           |               turn left               |   
+|           d           |               turn right              |  
+|        w and a        | move front along with turning left    |   
+|        w and d        |  move front along with turning right  |  
+|           1           |          move up in y - axis          |
+|           2           |         move down in y - axis         |   
+|           f1          |                 night                 |   
+|           f2          |                  day                  |   
 
 
-| **Buttons for color** |          **Color of the Car**         |   |   |   |   |
-|:---------------------:|:-------------------------------------:|---|---|---|---|
-|           r           |                  Red                  |   |   |   |   |
-|           g           |                 green                 |   |   |   |   |
-|           b           |                  blue                 |   |   |   |   |
-|           y           |                 yellow                |   |   |   |   |
-|           p           |                  pink                 |   |   |   |   |
+| **Buttons for color** |          **Color of the Car**         |  
+|:---------------------:|:-------------------------------------:|
+|           r           |                  Red                  |  
+|           g           |                 green                 |   
+|           b           |                  blue                 |  
+|           y           |                 yellow                |   
+|           p           |                  pink                 |   
 
 
 
