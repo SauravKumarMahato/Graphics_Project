@@ -57,14 +57,9 @@ yay && yay -S mesa freeglut //With yay installed
 - And run: 
 `./load_model`
 
-## SNAPSHOTS OF PROJECT:
+## PROJECT OUTPUT DEMO:
 
-
-![Screenshot from 2023-08-19 16-42-06](https://github.com/SauravKumarMahato/Graphics_Project/assets/83631265/72c107f6-8afd-45e6-ae22-e1745e9536a8)
-![Screenshot from 2023-08-19 16-41-23](https://github.com/SauravKumarMahato/Graphics_Project/assets/83631265/204071e7-40bf-42d7-bce6-dafd82d95763)
-![Screenshot from 2023-08-19 16-40-58](https://github.com/SauravKumarMahato/Graphics_Project/assets/83631265/fb53932a-393d-44a5-8c52-c0f426baf5a5)
-![Screenshot from 2023-08-19 16-42-34](https://github.com/SauravKumarMahato/Graphics_Project/assets/83631265/3b4d3c73-92c9-47bb-b27b-f336aa23ac1c)
-![Screenshot from 2023-08-19 16-42-20](https://github.com/SauravKumarMahato/Graphics_Project/assets/83631265/6fa02836-a1bc-46d1-b1a9-0f51c78fbad0)
+https://github.com/SauravKumarMahato/Graphics_Project/assets/83631265/2d0f66b3-c0a3-494c-a6a1-1899f37d9712
 
 ## REFERENCES:
 
